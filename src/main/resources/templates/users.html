@@ -1,0 +1,457 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:switch="${hotels}">-->
+<!--    <h2 th:case="null">No hotels found!</h2>-->
+<!--    <div th:case="*">-->
+<!--        <h2>Hotels</h2>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Id</th>-->
+<!--                <th>Name</th>-->
+<!--                <th>Country</th>-->
+<!--                <th>Capacity</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="hotel : ${hotels}">-->
+<!--                <td th:text="${hotel.id}"></td>-->
+<!--                <td th:text="${hotel.name}"></td>-->
+<!--                <td th:text="${hotel.country}"></td>-->
+<!--                <td th:text="${hotel.capacity}"></td>-->
+<!--                <td><a th:href="@{hotel-update/{id}(id=${hotel.id})}">Edit</a></td>-->
+<!--                <td><a th:href="@{hotel-delete/{id}(id=${hotel.id})}">Delete</a></td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <p><a th:href="hotel-create">Create Hotel</a></p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <style>
+
+
+        /*//////////////////////////////////////////////////////////////////
+        [ FONT ]*/
+
+
+        @font-face {
+            font-family: OpenSans-Regular;
+            src: url('/static/fonts/FontAwesome.otf');
+        }
+
+
+
+        /*//////////////////////////////////////////////////////////////////
+        [ RESTYLE TAG ]*/
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        /* ------------------------------------ */
+        a {
+            margin: 0px;
+            transition: all 0.4s;
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            -moz-transition: all 0.4s;
+        }
+
+        a:focus {
+            outline: none !important;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* ------------------------------------ */
+        h1,h2,h3,h4,h5,h6 {margin: 0px;}
+
+        p {margin: 0px;}
+
+        ul, li {
+            margin: 0px;
+            list-style-type: none;
+        }
+
+
+        /* ------------------------------------ */
+        input {
+            display: block;
+            outline: none;
+            border: none !important;
+        }
+
+        textarea {
+            display: block;
+            outline: none;
+        }
+
+        textarea:focus, input:focus {
+            border-color: transparent !important;
+        }
+
+        /* ------------------------------------ */
+
+        iframe {
+            border: none !important;
+        }
+
+
+
+
+        /*//////////////////////////////////////////////////////////////////
+        [ Utiliti ]*/
+
+
+
+
+
+
+        /*//////////////////////////////////////////////////////////////////
+        [ Table ]*/
+
+        .limiter {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .container-table100 {
+            width: 100%;
+            min-height: 100vh;
+            background: #c850c0;
+            background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
+            background: -o-linear-gradient(45deg, #4158d0, #c850c0);
+            background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
+            background: linear-gradient(45deg, #4158d0, #c850c0);
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 33px 30px;
+        }
+
+        .wrap-table100 {
+            width: 1170px;
+        }
+
+        table {
+            border-spacing: 1;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        table * {
+            position: relative;
+        }
+        table td, table th {
+            padding-left: 8px;
+        }
+        table thead tr {
+            height: 60px;
+            background: #36304a;
+        }
+        table tbody tr {
+            height: 50px;
+        }
+        table tbody tr:last-child {
+            border: 0;
+        }
+        table td, table th {
+            text-align: left;
+        }
+        table td.l, table th.l {
+            text-align: right;
+        }
+        table td.c, table th.c {
+            text-align: center;
+        }
+        table td.r, table th.r {
+            text-align: center;
+        }
+
+        .table100-head th{
+            font-family: OpenSans-Regular;
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.2;
+            font-weight: unset;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+        tbody tr {
+            font-family: OpenSans-Regular;
+            font-size: 15px;
+            color: #808080;
+            line-height: 1.2;
+            font-weight: unset;
+        }
+
+        tbody tr:hover {
+            color: #555555;
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .column1 {
+            width: 100px;
+            padding-left: 40px;
+        }
+
+        .column2 {
+            width: 100px;
+        }
+
+        .column3 {
+            width: 100px;
+        }
+
+        .column4 {
+            width: 100px;
+            padding-left: 40px;
+            /*text-align: right;*/
+        }
+
+        .column5 {
+            width: 170px;
+            text-align: right;
+        }
+
+        .column6 {
+            width: 222px;
+            text-align: right;
+            padding-right: 62px;
+        }
+
+
+        @media screen and (max-width: 992px) {
+            table {
+                display: block;
+            }
+            table > *, table tr, table td, table th {
+                display: block;
+            }
+            table thead {
+                display: none;
+            }
+            table tbody tr {
+                height: auto;
+                padding: 37px 0;
+            }
+            table tbody tr td {
+                padding-left: 40% !important;
+                margin-bottom: 24px;
+            }
+            table tbody tr td:last-child {
+                margin-bottom: 0;
+            }
+            table tbody tr td:before {
+                font-family: OpenSans-Regular;
+                font-size: 14px;
+                color: #999999;
+                line-height: 1.2;
+                font-weight: unset;
+                position: absolute;
+                width: 40%;
+                left: 30px;
+                top: 0;
+            }
+            table tbody tr td:nth-child(1):before {
+                content: "Date";
+            }
+            table tbody tr td:nth-child(2):before {
+                content: "Order ID";
+            }
+            table tbody tr td:nth-child(3):before {
+                content: "Name";
+            }
+            table tbody tr td:nth-child(4):before {
+                content: "Price";
+            }
+            table tbody tr td:nth-child(5):before {
+                content: "Quantity";
+            }
+            table tbody tr td:nth-child(6):before {
+                content: "Total";
+            }
+
+            .column4,
+            .column5,
+            .column6 {
+                text-align: left;
+            }
+
+            .column4,
+            .column5,
+            .column6,
+            .column1,
+            .column2,
+            .column3 {
+                width: 100%;
+            }
+
+            tbody tr {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container-table100 {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    </style>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/signin_up.css" >
+    <link rel="stylesheet" href="/css/home.css" >
+
+</head>
+<body>
+<header class="header---main">
+    <div class="container--header">
+        <!--        <div class="header__inner&#45;&#45;main">-->
+        <!--            <div class="header__logo">YCloud</div>-->
+        <!--            <nav class="nav">-->
+        <!--                <a class="nav_link" href="/auth/logout">logout</a>-->
+        <!--            </nav>-->
+        <!--        </div>-->
+    </div>
+</header>
+<div class="limiter">
+    <div class="container-table100">
+
+        <div class="wrap-table100">
+            <div class="table100" th:switch="${temps}">
+                <table>
+                    <thead>
+                    <tr class="table100-head">
+                        <th class="column1">ID</th>
+                        <th class="column2">Email</th>
+                        <th class="column3">First Name</th>
+                        <th class="column4">Last Name</th>
+                        <th class="column5">Hotel Name</th>
+                        <th class="column6">Room</th>
+                        <th class="column7">Since</th>
+                        <th class="column8">Until</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="temp : ${temps}">
+                        <td class="column1" th:text="${temp.id}"></td>
+                        <td class="column2" th:text="${temp.email}"></td>
+                        <td class="column3" th:text="${temp.firstName}"></td>
+                        <td class="column4" th:text="${temp.lastName}"></td>
+                        <td class="column5" th:text="${temp.hotelName}"></td>
+                        <td class="column6" th:text="${temp.room}"></td>
+                        <td class="column7" th:text="${temp.since}"></td>
+                        <td class="column8" th:text="${temp.until}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<div class="container">-->
+    <!--    <div th:switch="${services}">-->
+    <!--        <h2 th:case="null">No students found!</h2>-->
+    <!--        <div th:case="*">-->
+    <!--            <h2>Services</h2>-->
+    <!--            <table>-->
+    <!--                <thead>-->
+    <!--                <tr>-->
+    <!--                    <th>ID</th>-->
+    <!--                    <th>Service Name</th>-->
+    <!--                    <th>Price</th>-->
+    <!--                </tr>-->
+    <!--                </thead>-->
+    <!--                <tbody>-->
+    <!--                <tr th:each="service : ${services}">-->
+    <!--                    <td th:text="${service.id}"></td>-->
+    <!--                    <td th:text="${service.serviceName}"></td>-->
+    <!--                    <td th:text="${service.price}"></td>-->
+    <!--                </tr>-->
+    <!--                </tbody>-->
+    <!--            </table>-->
+    <!--        </div>-->
+
+    <!--    </div>-->
+    <!--    <form id="date_picker_form" action="/clients/orders" method="post" th:object="${order}">-->
+    <!--        <h1 class="form__title">Order</h1>-->
+    <!--        <div class="select">-->
+    <!--            <select th:field="*{treatment}" required>-->
+    <!--                <option value="" selected disabled hidden>Treatment</option>-->
+    <!--                <option th:each="treatment : ${treatments}" th:value="${treatment}" th:text="${treatment.name+' '+treatment.price}"></option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <div class="select">-->
+    <!--            <select th:field="*{master}" required>-->
+    <!--                <option value="" selected disabled hidden>Master</option>-->
+    <!--                <option th:each="master : ${masters}" th:value="${master}" th:text="${master.name+' '+master.surname}"></option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+
+    <!--        <div class="form__input-group">-->
+    <!--            <input type="date" class="form__input" id="date" autocomplete="off"  th:field="*{treatmentExecutionDate}" required/>-->
+    <!--        </div>-->
+    <!--        <div class="select">-->
+    <!--            <select th:field="*{treatmentExecutionTime}" required>-->
+    <!--                <option value="" selected disabled hidden>Free Time</option>-->
+    <!--                <option th:each="time : ${freeTime}" th:value="${time}" th:text="${time}"></option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <button class="form__button" type="submit" >Submit</button>-->
+    <!--    </form>-->
+</div>
+</body>
+</html>

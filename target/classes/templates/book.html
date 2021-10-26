@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/book}" method="POST">
+    <label for="hotelName">Hotel Name</label>
+    <input type="text" id="hotelName" placeholder="Hotel Name" th:name="hotelName">
+    <label for="roomNumber">Room Number</label>
+    <input type="text" id="roomNumber" placeholder="Room Number" th:name="roomNumber">
+    <label for="since">Since</label>
+    <input type="date" id="since" placeholder="Since" th:name="since">
+    <label for="until">Until</label>
+    <input type="date" id="until" placeholder="Until" th:name="until">
+    <input class="button button-sm button-secondary button-nina" type="submit" value="Book">
+</form>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <title>Login Customer</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--  <form class="form-signin" method="post" action="/login">-->
+<!--    <h2 class="form-signin-heading">Login</h2>-->
+<!--    <p>-->
+<!--      <label for="username">Username</label>-->
+<!--      <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>-->
+<!--    </p>-->
+<!--    <p>-->
+<!--      <label for="password">Password</label>-->
+<!--      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>-->
+<!--    </p>-->
+<!--    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+<!--  </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat&display=swap" rel="stylesheet">
+  <link th:href="@{/css/signInUp.css}" rel="stylesheet">
+</head>
+<body>
+<header class="header---main">
+  <div class="container--header">
+    <div class="header__inner--main">
+      <nav class="nav">
+        <a class="nav_link" th:href="@{/}">Home Page</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <form class="form-signin" action="/login" method="post">
+    <h1 class="form__title">Login</h1>
+    <div class="form__input-group">
+      <input type="text" id="username" name="username" class="form form__input" placeholder="Email" required>
+    </div>
+    <div class="form__input-group">
+      <input type="password" id="password" name="password" class="form form__input" placeholder="Password" required>
+    </div>
+    <button class="form__button" type="submit" >Continue</button>
+    <p class="form__text">
+      <a id="linkCreateAccount" href="" class="form__link">Don't have an account? Sign up</a>
+    </p>
+  </form>
+</div>
+</body>
+</html>

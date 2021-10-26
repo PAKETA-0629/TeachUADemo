@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create hotel</title>
+</head>
+<body>
+<form action="#" th:action="@{/hotel-create}" th:object="${hotel}" method="post">
+    <label for="name">Hotel name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Hotel Name">
+    <label for="country">Country</label>
+    <input type="text" th:field="*{country}" id="country" placeholder="Country">
+    <label for="capacity">Capacity</label>
+    <input type="text" th:field="*{capacity}" id="capacity" placeholder="Capacity">
+    <input type="submit" value="Create Hotel">
+</form>
+</body>
+</html>
